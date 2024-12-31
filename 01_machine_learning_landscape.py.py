@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+import sklearn.linear_model
 import sklearn.model_selection
 pd.options.display.max_columns = None
 pd.options.display.max_rows = 200
@@ -194,50 +195,40 @@ df_census.columns = [
     'income'
 ]
 
+df_census.dtypes
 
 
+# deal with null
+df_census.isnull().sum()
 
 
+# drop education since education-num is available
+df_census = df_census.drop(['education'], axis=1)
 
 
+# creat dummy variables with one-hot encoder
+df_census = pd.get_dummies(df_census, 
+                        #    drop_first=True
+                           )
 
 
-
-
-
-
-
-
-
-
-
-
+# define X and y
+X = df_census.drop(['income_ <=50K', 'income_ >50K'], axis=1)
+y = df_census['income_ >50K']
 
 
 # ----------------------------------------------------------------------------
-
+# Logistic Regression vs XGB Classifier
 # ----------------------------------------------------------------------------
+def perf_metrics(model, cv):
+    model = model
+    scores = sklearn.model_selection.cross_val_score(model, X, y, cv=cv)
+    print('Accuracy:', np.round(scores, 2))
+    print('Accuracy mean is {:.2f}'.format(scores.mean()))
 
+perf_metrics(sklearn.linear_model.LogisticRegression(), 10)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+perf_metrics(xgb.XGBClassifier(), 10)
 
 
 # ----------------------------------------------------------------------------
