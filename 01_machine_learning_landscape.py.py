@@ -1,7 +1,5 @@
 import numpy as np
 import pandas as pd
-import sklearn.linear_model
-import sklearn.model_selection
 pd.options.display.max_columns = None
 pd.options.display.max_rows = 200
 from datetime import datetime
