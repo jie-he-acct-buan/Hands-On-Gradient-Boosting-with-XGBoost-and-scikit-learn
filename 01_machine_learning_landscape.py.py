@@ -63,7 +63,8 @@ df_bikes = df_bikes.drop(['casual', 'registered'], axis=1)
 # ----------------------------------------------------------------------------
 # saving the cleaned data
 # ----------------------------------------------------------------------------
-df_bikes.to_csv('dataset_1_bike_rentals/bike_rentals_cleaned.csv')
+df_bikes.to_csv('dataset_1_bike_rentals/bike_rentals_cleaned.csv',
+                index=False)
 
 
 # ----------------------------------------------------------------------------
